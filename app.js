@@ -1,3 +1,19 @@
+/**
+ * Copyright 2019 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License'); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
 // BASE SETUP
 // =============================================================================
 var path        = require('path');
@@ -23,7 +39,7 @@ if (services['pm-20']) {
    service = services['pm-20'][0];
 }
 var credentials = service.credentials;
-if (credentials != null) {	   
+if (credentials != null) {
 		env.baseURL = credentials.url;
 		env.accessKey = credentials.access_key;
 		env.instance_id = credentials.instance_id;
@@ -34,29 +50,29 @@ if (credentials != null) {
 				user: credentials.username,
 				password: credentials.password
 			},
-			json:true
+			json: true
 		};
 		request(options, function(err, res, body) {
 			if (err) {
 				console.log('Error  from GET to retrieve token ' + err);
 				return;
 			}
-			
+
 			token = body.token;
 			var opts = {
 			   url: env.baseURL + '/v3/wml_instances/' + env.instance_id + '/deployments',
 			   method: 'GET',
 			   headers: {
-				  Authorization: 'Bearer ' + token				  
+				  Authorization: 'Bearer ' + token
 			   },
-			   json:true
+			   json: true
 			}
 			request(opts, function(err, res, body) {
 			   if (err) {
 			      console.log('Error  from GET to retrieve scoring href ' + err);
 				  return;
 			   }
-			   
+
 			   for (i = 0; i < body.resources.length; i++) {
 				   if (body.resources[i].entity.published_model.name == 'Heart Failure Prediction Model') {
 					   scoringHref = body.resources[i].entity.scoring_url;
@@ -71,10 +87,10 @@ if (credentials != null) {
 			   }
 			});
 		});
-		
+
 }
 
-// Only  URL paths prefixed by /score will be handled by our router 
+// Only  URL paths prefixed by /score will be handled by our router
 var rootPath = '/score';
 
 // ROUTES FOR OUR API
@@ -98,14 +114,14 @@ router.get('/', function(req, res) {
 });
 
 // score request
-// Calls the PM Service instance 
+// Calls the PM Service instance
 router.post('/', function(req, res) {
-	
+
 	if (!token || !scoringHref) {
 		res.status(503).send('Service unavailable');
 		return;
 	}
-	
+
 console.log('=== SCORE ===');
 console.log('  URI  : ' + scoringHref);
 console.log('  Input: ' + JSON.stringify(req.body.input));
@@ -115,21 +131,21 @@ console.log(' ');
 			url: scoringHref,
 			method: "POST",
 			headers: {
-			   Authorization: 'Bearer ' + token				  
+			   Authorization: 'Bearer ' + token
 			},
 			// The following query parameters are not used when scoring against a WML Model
 			//qs: { instance_id: env.instance_id, deployment_id: env.deployment_id, published_model_id: env.published_model_id },
 			json: req.body.input
 		};
 		request(opts, function(err, r, body) {
-			if (err) {			   	
+			if (err) {
 			   res.status(500).send(err);
 			}
 			else {
-				console.log('Reply from scoring ' + body);				
+				console.log('Reply from scoring ' + body);
                 res.json(body);
 			}
-				
+
 		});
 
 	} catch (e) {
@@ -146,12 +162,12 @@ console.log(' ');
 			message: msg
 		}));
 	}
-	
+
 	process.on('uncaughtException', function (err) {
     console.log(err);
-	}); 
+	});
 });
-        
+
 // Register Service routes and SPA route ---------------
 
 // all of our service routes will be prefixed with rootPath

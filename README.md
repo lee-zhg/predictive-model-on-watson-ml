@@ -1,16 +1,12 @@
-DISCLAIMER: This application is used for demonstrative and illustrative purposes only and does not constitute an offering that has gone through regulatory review.
-
 # Create and deploy a scoring model to predict heart failure on IBM Cloud with the Watson Data Platform
 
-In this Code Pattern, we will use a Jupyter Notebook on IBM Watson Studio to build a predictive model that demonstrates a potential health care use case.
-This a customized version of the Node.js sample app that is available with the [Watson Machine Learning Service on IBM Cloud](https://cloud.ibm.com/docs/services/PredictiveModeling/index.html#WMLgettingstarted)
-See the [original app](https://github.com/pmservice/predictive-modeling-samples) for a walkthrough of the source code.
+> **DISCLAIMER**: This application is used for demonstrative and illustrative purposes only and does not constitute an offering that has gone through regulatory review.
 
-When the reader has completed this Code Pattern, they will understand how to:
+In this Code Pattern, we will build a simple web app that allows a user to input some data to be scored against a model. The model will be built using Spark within a Jupyter Notebook on IBM Watson Studio. The model is then deployed to the Watson Machine Learning service, where it can be accessed via a REST API. When the reader has completed this Code Pattern, they will understand how to:
 
-* Build a predictive model within a Jupyter Notebook
-* Deploy the model to IBM Watson Machine Learning service
-* Access the Machine Learning model via either APIs or a Nodejs app
+* Build a predictive model within a Jupyter Notebook on Watson Studio
+* Deploy the model to the IBM Watson Machine Learning service
+* Via a Node.js app, score some data against the model via an API call to the Watson Machine Learning service
 
 !["architecture diagram"](doc/source/images/architecture.png)
 
@@ -26,22 +22,20 @@ When the reader has completed this Code Pattern, they will understand how to:
 8. A user visits the web app, enters their information, and the predictive model returns a response.
 
 ## Included components
+
 * [IBM Watson Studio](https://www.ibm.com/cloud/watson-studio): Analyze data using RStudio, Jupyter, and Python in a configured, collaborative environment that includes IBM value-adds, such as managed Spark.
 * [Jupyter Notebook](https://jupyter.org/): An open source web application that allows you to create and share documents that contain live code, equations, visualizations, and explanatory text.
 * [PixieDust](https://github.com/pixiedust/pixiedust): Provides a Python helper library for IPython Notebook.
-
-## Featured technologies
-* [Artificial Intelligence](https://developer.ibm.com/technologies/artificial-intelligence/): Artificial intelligence can be applied to disparate solution spaces to deliver disruptive technologies.
-* [Data Science](https://developer.ibm.com/technologies/data-science/): Systems and scientific methods to analyze structured and unstructured data in order to extract knowledge and insights.
 * [Node.js](https://nodejs.org/): An open-source JavaScript run-time environment for executing server-side JavaScript code.
 
-<!--
-# Watch the Video
-TBD
--->
+## Prerequisites
 
-# Steps
+* An [IBM Cloud Account](https://cloud.ibm.com)
+* An account on [IBM Watson Studio](https://dataplatform.cloud.ibm.com/).
 
+> **NOTE**: As of 12/14/2018, the Watson Machine Learning service on IBM Cloud is only available in the Dallas, London, Frankfurt, or Tokyo regions.
+
+## Steps
 
 1. [Deploy the testing application](#1-deploy-the-testing-application)
 1. [Create an instance of the Watson Machine Learning Service](#2-create-an-instance-of-the-watson-machine-learning-service)
@@ -51,16 +45,6 @@ TBD
 1. [Run the notebook in IBM Watson Studio](#6-run-the-notebook-in-ibm-watson-studio)
 1. [Deploy the saved predictive model as a scoring service using the web ui](#7-deploy-the-saved-predictive-model-as-a-scoring-service-using-the-web-ui)
 1. [Deploy the saved predictive model using APIs](#8-deploy-the-saved-predictive-model-using-apis)
-
-## Prerequisites
-
-* An [IBM Cloud Account](https://cloud.ibm.com)
-
-* An account on [IBM Watson Studio](https://dataplatform.cloud.ibm.com/).
-
-* A space in IBM Cloud Dallas, London, Frankfurt, or Tokyo regions.
-
-As of 12/14/2018, the Machine Learning service on IBM Cloud is only available in the Dallas, London, Frankfurt, or Tokyo regions.
 
 ### 1. Deploy the testing application
 
@@ -179,10 +163,8 @@ Use Ctrl-click on the Deploy to `IBM Cloud` button below to open the deployment 
 
   ![](doc/source/images/run-notebook.png?raw=true)
 
-
 * Move your cursor to each code cell and run the code in it. Read the comments for each cell to understand what the code is doing. **Important** when the code in a cell is still running, the label to the left changes to **In [\*]**:.
   Do **not** continue to the next cell until the code is finished running.
-
 
 ### 7. Deploy the saved predictive model as a scoring service using the web UI
 
@@ -203,7 +185,7 @@ During Step 6.2, after running the second cell, get the `model_id` and put it in
 Put the `deployment_id` in the cell under `Montitor the status of deployment`.
 For Step 6.3, add the `scoring_url` to the cell.
 
-# Sample Output
+## Sample Output
 
 * In the dashboard, Click on the application name, then choose `Visit App URL` from the `Overview` page to open the application in a separate tab.
 
@@ -223,16 +205,8 @@ For Step 6.3, add the `scoring_url` to the cell.
 
 ![](doc/source/images/failure-no.png?raw=true)
 
-# Learn more
 
-* **Artificial Intelligence Code Patterns**: Enjoyed this Code Pattern? Check out our other [AI Code Patterns](https://developer.ibm.com/technologies/artificial-intelligence/).
-* **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/technologies/data-science/)
-* **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
-* **With Watson**: Want to take your Watson app to the next level? Looking to utilize Watson Brand assets? [Join the With Watson program](https://www.ibm.com/watson/with-watson/) to leverage exclusive brand, marketing, and tech resources to amplify and accelerate your Watson embedded commercial solution.
-* **Watson Studio**: Master the art of data science with IBM's [Watson Studio](https://dataplatform.cloud.ibm.com/)
-* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://cloud.ibm.com/catalog/services/apache-spark)
-
-# License
+## License
 
 This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
