@@ -22,12 +22,12 @@ import urllib3, requests, json
 # retrieve your wml_service_credentials_username, wml_service_credentials_password, and wml_service_credentials_url from the
 # Service credentials associated with your IBM Cloud Watson Machine Learning Service instance
 
-wml_instance = 'a7ea00ba-abd1-4516-838e-fe298495a427'
-wml_deployment = '13cbddfd-69ad-4d1d-8234-a26f29d3f715'
+wml_instance = '***'
+wml_deployment = '***'
 wml_service_credentials_url = 'https://us-south.ml.cloud.ibm.com'
-wml_service_credentials_username = '8b9b89e0-aaa5-4fcd-8a5d-b0d8c85c5152'
-wml_service_credentials_password = '26de7ff9-7bb6-45ce-b311-d0b14061748f'
-wml_service_api_key = 'SPUIW7odR8YWYSJ5ij_3PgzD77Z59K4A9GIJcnfwU_xb'
+wml_service_credentials_username = '***'
+wml_service_credentials_password = '***'
+wml_service_api_key = '***'
 
 wml_credentials={
   "url": wml_service_credentials_url,
