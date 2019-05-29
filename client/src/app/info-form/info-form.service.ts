@@ -21,20 +21,23 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class InfoService {
 
     constructor(private http: HttpClient) { }
 
-    wmlUserName = '***';
-    wmlPassword = '***';
-    wmlApiKey = '***';
-    wmlInstance = '***';
-    wmlDeployment = '***';
+    wmlUserName: String = environment.wmlUserName;
+    wmlPassword: String = environment.wmlPassword;
+    wmlApiKey: String = environment.wmlApiKey;
+    wmlInstance: String = environment.wmlInstance;
+    wmlDeployment: String = environment.wmlDeployment;
+    hostName:String = environment.hostName;
 
     getToken() {
-        const tokenUrl = '/v3/identity/token';
+        console.log("hostname: "+ this.hostName);
+        const tokenUrl = this.hostName + '/v3/identity/token';
         const tokenHeader = 'Basic ' + btoa((this.wmlUserName + ':' + this.wmlPassword));
 
         const httpOptions = {
@@ -48,7 +51,9 @@ export class InfoService {
     }
 
     scoreInfo(age, gender, familyhistory, smoker, exercise, cholesterol, bmi, heartbeats, palpitations, token) {
-        const scoringURL = '/v3/wml_instances/' + this.wmlInstance + '/deployments/' + this.wmlDeployment + '/online';
+        console.log("hostname: "+ this.hostName);
+
+        const scoringURL = this.hostName + '/v3/wml_instances/' + this.wmlInstance + '/deployments/' + this.wmlDeployment + '/online';
         const tokenHeader = 'Bearer ' + token;
 
         const payloadArray = {
