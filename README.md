@@ -156,7 +156,7 @@ Now that we're in our Notebook editor, we can start to create our predictive mod
 
 ![notebook viewer](doc/source/images/notebook-viewer.png)
 
-#### 2.1 Step through the notebook and create a model (step 1-4)
+#### 2.1 Step through the notebook and create a model (step 1-4 of the notebook)
 
 * Click the `(►) Run` button to start stepping through the notebook. 
 
@@ -187,7 +187,7 @@ Now that we're in our Notebook editor, we can start to create our predictive mod
 
    ![model notebook eval](doc/source/images/model-notebook-eval.png)
 
-#### 2.2 Save the model (step 5)
+#### 2.2 Save the model (step 5 of the notebook)
 
 The gist of the next two steps is to use the [Watson Machine Learning Python client](https://wml-api-pyclient.mybluemix.net/) to persist and deploy the model we just created.
 
@@ -201,7 +201,7 @@ The gist of the next two steps is to use the [Watson Machine Learning Python cli
 
    ![created-saved-model](doc/source/images/created-saved-model.png)
 
-#### 2.3 Deploy the model (step 6)
+#### 2.3 Deploy the model (step 6 of the notebook)
 
 * Now let's run *Step 6* of the notebook. Deploy our model so we can have an endpoint to score data against.
 
