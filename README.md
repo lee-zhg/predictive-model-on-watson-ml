@@ -75,13 +75,21 @@ To complete this code pattern we'll need to do a few setup steps before creating
 
 * Log into IBM's [Watson Studio](https://dataplatform.cloud.ibm.com). Once in, you'll land on the dashboard.
 
-* Create a new project by clicking `+ New project` and choosing `Data Science`:
+* Create a new project by clicking `+ New project` and choosing `Data Science and AutoAI`:
 
    ![studio project](doc/source/images/studio-project-ds.png)
 
-* Enter a name for the project name and click `Create`.
+* Choose a `Region`.
 
-> **NOTE**: By creating a project in Watson Studio a free tier `Object Storage` service will be created in your IBM Cloud account. Select the `Free` storage type to avoid fees.
+* Enter a name for the project name.
+
+* Choose a `Storge` if you have more than one storage. If you don't have any yet, it'll create a new Storage for you.
+
+* Choose a `Watson Machine Learning` instance if you have more than one. If you don't have any, it'll create a new instance for you.
+
+* Click `Create`.
+
+> **NOTE**: By creating a project in Watson Studio a free tier `Object Storage` service can be created in your IBM Cloud account. Select the `Free` storage type to avoid fees.
 
 #### 1.2 Add patient data as an asset
 
@@ -94,7 +102,7 @@ The data used in this example was generated using a normal distribution. Attribu
 * A panel on the right of the screen will appear to assit you in uploading data. Follow the numbered steps in the image below.
 
   * Ensure you're on the `Load` tab. [1]
-  * Click on the `browse` option. From your machine, browse to the location of the [`patientdataV6.csv`](data/patientdataV6.csv) file in this repository, and upload it. [not numbered]
+  * Click on the `browse` option. From your machine, browse to the location of the `data/patientdataV6.csv` file in this repository, and upload it. [not numbered]
   * Once uploaded, go to the `Files` tab. [2]
   * Ensure the `patientdataV6.csv` appears. [3]
 
@@ -105,6 +113,10 @@ The data used in this example was generated using a normal distribution. Attribu
    ![data asset](doc/source/images/data-asset.png)
 
 #### 1.3 Provision a Watson Machine Learning service
+
+This section has instruction for creating Watson Machine Learning service manually. You either created a new Watson Machine Learning service instance or selected an existing pone while you created a new project in Watson Studio.
+
+If you don't know how to get credential of a Watson Machine Learning service instance, please read the rest of this section. Otherwise, you may skip this section and move on to the next section.
 
 * Click on the navigation menu on the left (`☰`) to show additional options. Click on the `Watson Services` option.
 
@@ -129,7 +141,8 @@ The notebook we'll be using can be viewed in [`notebooks/predictiveModel.ipynb`]
   * Select the `From URL` tab. [1]
   * Enter a `Name` for the notebook and optionally a description. [2]
   * Under `Notebook URL` provide the following url: [https://github.com/IBM/predictive-model-on-watson-ml/blob/master/notebooks/predictiveModel.ipynb](https://github.com/IBM/predictive-model-on-watson-ml/blob/master/notebooks/predictiveModel.ipynb) [3]
-  * For `Runtime` select the `Spark Python 3.6` option. [4]
+  * For `Runtime` select the `Default Spark Python 3.6 XS ......` option. [4]
+  * Create Notebook.
 
   ![add notebook](doc/source/images/create-spark-notebook.png)
 
@@ -143,11 +156,15 @@ Now that we're in our Notebook editor, we can start to create our predictive mod
 
 ![notebook viewer](doc/source/images/notebook-viewer.png)
 
-#### 2.1 Start stepping through the notebook
+#### 2.1 Step through the notebook and create a model (step 1-4)
 
-* Click the `(►) Run` button to start stepping through the notebook.
+* Click the `(►) Run` button to start stepping through the notebook. 
 
-* When you reach the cell entitled *2. Load and explore data* pause and follow the instructions in that cell. On the very next cell we need to add our data. Follow the numbered steps in the image below.
+>  Note: You would click the `(►) Run` to execute each step in the notebook. If you had experience working in old notebook UI, there was an execution icon in the front of each step.
+
+> In the front of each code section of notebook, if you found `[ ]`, the code has not been executed yet. If you found `[*]`, the code is being executed. If found `[number]`, the code execution was completed. The number is increased by 1 after each code section execution. Before you start executing the next code, be sure that the current code and all previous code sections have completed.
+
+* When you reach the cell entitled `2. Load and explore data`, pause and follow the instructions in that cell. On the very next cell you need to add our data. Follow the numbered steps in the image below.
 
   ![stop on this cell](doc/source/images/insert-point.png)
 
@@ -164,11 +181,13 @@ Now that we're in our Notebook editor, we can start to create our predictive mod
 
   ![modify automatic code](doc/source/images/spark-data-frame.png)
 
-* Keep stepping through the code, pausing on each step to read the code and see the output for the opertion we're performing. At the end of *Step 4* we'll have used the [Random Forest Classifier from PySpark](https://spark.apache.org/docs/2.1.0/ml-classification-regression.html#random-forest-classifier) to create a model **LOCALLY**.
+* Keep stepping through the code, pausing on each step to read the code and see the output for the opertion we're performing. 
+
+* At the end of *Step 4*, we'll have used the [Random Forest Classifier from PySpark](https://spark.apache.org/docs/2.1.0/ml-classification-regression.html#random-forest-classifier) to create a model **LOCALLY**.
 
    ![model notebook eval](doc/source/images/model-notebook-eval.png)
 
-#### 2.2 Save the model
+#### 2.2 Save the model (step 5)
 
 The gist of the next two steps is to use the [Watson Machine Learning Python client](https://wml-api-pyclient.mybluemix.net/) to persist and deploy the model we just created.
 
@@ -182,7 +201,7 @@ The gist of the next two steps is to use the [Watson Machine Learning Python cli
 
    ![created-saved-model](doc/source/images/created-saved-model.png)
 
-#### 2.3 Deploy the model
+#### 2.3 Deploy the model (step 6)
 
 * Now let's run *Step 6* of the notebook. Deploy our model so we can have an endpoint to score data against.
 
